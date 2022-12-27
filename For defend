@@ -1,0 +1,97 @@
+using System;
+using System.Collections.Generic;
+using System.Text;
+using System.Linq;
+using System.Threading.Channels;
+
+namespace lab_4
+{
+    internal class Program
+    {
+        static void Main(string[] args)
+        {
+            int.TryParse(Console.ReadLine(), out int n);
+            int[,] M = new int[n, n];
+            int m = (n * (n + 1)) / 2;
+            int[] a1 = new int[m];
+            int[] a2 = new int[n * n - m];
+            Random random = new Random();
+            for (int i = 0; i < n; i++)
+            {
+                for (int j = 0; j < n; j++)
+                {
+                    M[i, j] = random.Next(10);
+                }
+            }
+            for (int i = 0; i < n; i++)
+            {
+                for (int j = 0; i < n; j++)
+                {
+                    Console.Write(M[i, j] + "\t");
+                }
+                Console.WriteLine();
+            }
+            int k = 0, l = 0;
+            for (int i = 0; i < n; i++)
+            {
+                for (int j = 0; j < n; j++)
+                {
+                    if ((i == j) || (i < j))
+                    {
+                        a1[k] = M[i, j];
+                        k++;
+                    }
+                    else
+                    {
+                        a2[l] = M[i, j];
+                        l++;
+                    }
+                }
+            }
+            //gnome - sort
+            int index1 = 1;
+            int nextindex = index1 + 1;
+            int temp;
+            while (index1 < a1.Length)
+            {
+                if (a1[index1 - 1] < a1[index1])
+                {
+                    index1 = nextindex;
+                    nextindex++;
+                }
+                else
+                {
+                    temp = a1[index1 - 1]; a1[index1 - 1] = a1[index1]; a1[index1] = temp;
+                    index1--;
+                    if (index1 == 0)
+                    {
+                        index1 = nextindex;
+                        nextindex++;
+                    }
+                }
+            }
+            for (int i = 0; i < a1.Length; i++)
+            {
+                Console.WriteLine(a1[i] + "");
+            }
+            //insert - sort
+            int index2;
+            int gl;
+            for (int i = 0; i < a2.Length; i++)
+            {
+                index2 = 1;
+                gl = a2[i];
+                while (index2 > 0 && gl < a2[index2 - 1])
+                {
+                    a2[index2] = a2[index2 - 1];
+                    index2--;
+                }
+                a2[index2] = gl;
+            }
+            for (int i = 0; i < a2.Length; i++)
+            {
+                Console.WriteLine(a2[i] + "");
+            }
+        }
+    }
+}
