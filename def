@@ -1,0 +1,59 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Globalization;
+using System.Text;
+using System.Reflection;
+
+namespace lab4
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            Random rnd = new Random();
+            Console.WriteLine("Enter the size of matrix, it would be square");
+            int.TryParse(Console.ReadLine(), out int n);
+            int m = (n * (n + 1)) / 2;
+            int[] a1 = new int[m];
+            int[] a2 = new int[n * n - m];
+            if (n <= 0) { Console.WriteLine("ERROR"); return; }
+            int [,] M = new int[n, n];
+            for (int i = 0; i < n; i++)
+            {
+                for (int j = 0; j < n; j++)
+                {
+                    M[i, j] = rnd.Next(10);
+                }
+            }
+            Console.WriteLine("our matrix:");
+            for (int i = 0; i < n; i++)
+            {
+                for (int j = 0; j < n; j++)
+                {
+                    Console.Write(M[i, j] + "\t");
+                }
+                Console.WriteLine();
+            }
+            int k = 0, l = 0;
+            for (int i = 0; i < n; i++)
+            {
+                for (int j = 0; j < n; j++)
+                {
+                    if ((i == j) || (i < j))
+                    {
+                        a1[k] = M[i, j];
+                        k++;
+                    }
+                    else
+                    {
+                        a2[l] = M[i, j];
+                        l++;
+                    }
+                }
+            }
+
+            
+        }
+    }
+}
